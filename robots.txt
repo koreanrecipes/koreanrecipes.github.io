@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://koreanrecipes.github.io/sitemap.xml

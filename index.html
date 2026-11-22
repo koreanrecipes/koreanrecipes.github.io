@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Korean Recipes — Authentic Korean cooking, made simple at home.</title>
+<meta name="description" content="Korean Recipes: kimchi, bibimbap, bulgogi and more — practical Korean recipes with kitchen tools and step-by-step guides.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#FFF8E7;color:#2C2C2C;line-height:1.65}.wrap{max-width:1000px;margin:0 auto;padding:0 16px}header{background:#2C2C2C;padding:16px 0}.brand{color:#FFF8E7;font-size:28px;font-weight:bold;text-decoration:none}.brand span{color:#E74C3C}.tagline{color:#F5D5CB;margin:4px 0 10px}nav a{color:#FFF8E7;text-decoration:none;margin-right:16px}nav a:hover{color:#E74C3C}.hero{background:#C0392B;color:#fff;padding:44px 20px;text-align:center;border-radius:0 0 12px 12px}.hero h1{margin:0 0 10px;font-size:36px}.hero p{font-size:18px;max-width:640px;margin:0 auto}.hero img{width:100%;max-width:760px;height:auto;border-radius:10px;margin-top:18px}h1,h2,h3{color:#C0392B}.toolgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.tool{background:#fff;border:2px solid #C0392B;border-radius:10px;padding:18px}.tool h3{margin-top:0}label{display:block;margin:8px 0 4px;font-weight:bold;font-size:14px}input,select{width:100%;max-width:340px;padding:9px;border:1px solid #B0A090;border-radius:6px;font-size:15px}button{background:#C0392B;color:#fff;border:none;padding:10px 18px;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:10px}button:hover{background:#922B21}.result{margin-top:12px;background:#FFF8E7;border-left:4px solid #C0392B;padding:10px;font-size:14px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.card{background:#fff;border:1px solid #E0CFC0;border-radius:10px;overflow:hidden}.card img{width:100%;height:170px;object-fit:cover;display:block}.card h3{margin:12px 12px 4px}.card h3 a{color:#C0392B;text-decoration:none}.card p{margin:0 12px 14px;font-size:14px}footer{background:#2C2C2C;color:#FFF8E7;padding:20px 0;margin-top:40px;font-size:14px}footer a{color:#F5D5CB}.article-img{width:100%;height:auto;border-radius:10px;margin:12px 0}ul,ol{padding-left:22px}</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="index.html">Korean Recipes</a><p class="tagline">Authentic Korean cooking, made simple at home.</p><nav><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy Policy</a><a href="disclaimer.html">Disclaimer</a></nav></div></header>
+<div class="wrap">
+<section class="hero"><h1>Cook Korean Food at Home</h1><p>Real Korean recipes, clear steps, and handy kitchen tools — from kimchi and bibimbap to Korean fried chicken.</p><img src="images/kimchi-at-home.jpg" alt="Korean food spread"></section>
+
+<section class="tools"><h2>Korean Kitchen Tools</h2><div class="toolgrid">
+<div class="tool"><h3>1. Recipe Filter by Category &amp; Time</h3>
+<label>Category <select id="fCat"><option value="">All</option><option>Main</option><option>Stew</option><option>Snack</option><option>Side</option></select></label>
+<label>Max minutes <input id="fTime" type="number" value="60" min="5" max="180"></label>
+<button onclick="filterRecipes()">Filter recipes</button><div class="result" id="fOut">Choose a category and time, then filter.</div></div>
+<div class="tool"><h3>2. Serving-Size Scaler</h3>
+<label>Original servings <input id="sOrig" type="number" value="4" min="1"></label>
+<label>Desired servings <input id="sWant" type="number" value="6" min="1"></label>
+<label>Amount in original recipe (g) <input id="sAmt" type="number" value="500" min="0"></label>
+<button onclick="scaleServing()">Scale amount</button><div class="result" id="sOut"></div></div>
+<div class="tool"><h3>3. Korean Ingredient Converter (cups to grams)</h3>
+<label>Ingredient <select id="cIng"><option value="120">Rice, 1 cup = 120 g</option><option value="200">Gochujang, 1 cup = 200 g</option><option value="240">Soy sauce, 1 cup = 240 g</option><option value="220">Sugar, 1 cup = 220 g</option><option value="125">Flour, 1 cup = 125 g</option></select></label>
+<label>Cups <input id="cCups" type="number" value="1" step="0.25" min="0"></label>
+<button onclick="convertCups()">Convert</button><div class="result" id="cOut"></div></div>
+<div class="tool"><h3>4. Kimchi Fermentation Day Tracker</h3>
+<label>Kimchi start date <input id="kDate" type="date"></label>
+<button onclick="kimchiDays()">How many days?</button><div class="result" id="kOut">Pick the date you made your kimchi.</div></div>
+<div class="tool"><h3>5. Recipe Search</h3>
+<label>Search recipes <input id="qSearch" type="text" placeholder="e.g. kimchi, chicken, noodles"></label>
+<button onclick="searchRecipes()">Search</button><div class="result" id="qOut">Type a word and search all 20 recipes.</div></div>
+</div></section>
+<script>
+var RECIPES=[["Kimchi at Home","Side",20],["Bibimbap","Main",30],["Bulgogi","Main",40],["Tteokbokki","Snack",25],["Korean BBQ at Home","Main",45],["Kimbap","Snack",50],["Japchae","Main",40],["Sundubu Jjigae","Stew",30],["Samgyeopsal","Main",30],["Korean Fried Chicken","Main",60],["Galbi","Main",50],["Doenjang Jjigae","Stew",35],["Naengmyeon","Main",25],["Mandu","Snack",60],["Korean Pancakes Pajeon","Snack",20],["Kimchi Fried Rice","Main",15],["Dakgalbi","Main",35],["Jjajangmyeon","Main",30],["Korean Street Food","Snack",30],["Banchan Guide","Side",40]];
+function filterRecipes(){var c=document.getElementById('fCat').value,t=+document.getElementById('fTime').value;var m=RECIPES.filter(function(r){return (!c||r[1]===c)&&r[2]<=t;});document.getElementById('fOut').textContent=m.length?m.map(function(r){return r[0]+' ('+r[2]+' min)';}).join(', '):'No recipes match. Try a longer time.';}
+function scaleServing(){var o=+document.getElementById('sOrig').value,w=+document.getElementById('sWant').value,a=+document.getElementById('sAmt').value;if(!o||!w){document.getElementById('sOut').textContent='Enter servings above 0.';return;}document.getElementById('sOut').textContent=a+' g for '+o+' servings becomes '+(a*w/o).toFixed(0)+' g for '+w+' servings.';}
+function convertCups(){var g=+document.getElementById('cIng').value,c=+document.getElementById('cCups').value;document.getElementById('cOut').textContent=c+' cup(s) = '+(g*c).toFixed(0)+' g.';}
+function kimchiDays(){var d=document.getElementById('kDate').value;if(!d){document.getElementById('kOut').textContent='Pick a start date first.';return;}var days=Math.floor((new Date()-new Date(d+'T00:00:00'))/86400000);var stage=days<0?'That date is in the future.':days<3?'Days 1-3: fresh and crunchy, still mild.':days<7?'Days 4-7: lightly tangy, good for cooking.':days<21?'Days 8-21: nicely sour, perfect for eating as a side.':'Over 3 weeks: very sour, best for stews and fried rice.';document.getElementById('kOut').textContent='Day '+days+'. '+stage;}
+function searchRecipes(){var q=document.getElementById('qSearch').value.toLowerCase().trim();if(!q){document.getElementById('qOut').textContent='Type a search word first.';return;}var m=RECIPES.filter(function(r){return r[0].toLowerCase().indexOf(q)>-1;});document.getElementById('qOut').textContent=m.length?m.map(function(r){return r[0];}).join(', '):'No recipe matches "'+q+'".';}
+</script>
+
+<h2>All 20 Korean Recipe Guides</h2>
+<div class="cards">
+<div class="card"><img src="images/kimchi-at-home.jpg" alt="Kimchi at Home"><h3><a href="guides/kimchi-at-home.html">Kimchi at Home</a></h3><p>Making kimchi at home is simpler than most people think, and a single batch gives you a tangy, probiotic-rich side dish that keeps for weeks in the fridge. A longer read with extra tips and serving ideas.</p></div>
+<div class="card"><img src="images/bibimbap.jpg" alt="Bibimbap"><h3><a href="guides/bibimbap.html">Bibimbap</a></h3><p>Bibimbap is Korea&#x27;s most famous mixed rice bowl: warm rice topped with colourful vegetables, protein and a fried egg, finished with gochujang.</p></div>
+<div class="card"><img src="images/bulgogi.jpg" alt="Bulgogi"><h3><a href="guides/bulgogi.html">Bulgogi</a></h3><p>Bulgogi is thinly sliced beef marinated in a sweet-savoury soy sauce, then cooked quickly over high heat until the edges caramelise.</p></div>
+<div class="card"><img src="images/tteokbokki.jpg" alt="Tteokbokki"><h3><a href="guides/tteokbokki.html">Tteokbokki</a></h3><p>Tteokbokki is Korea&#x27;s favourite street snack: chewy rice cakes simmered in a spicy-sweet gochujang sauce. A longer read with extra tips and serving ideas.</p></div>
+<div class="card"><img src="images/korean-bbq-at-home.jpg" alt="Korean BBQ at Home"><h3><a href="guides/korean-bbq-at-home.html">Korean BBQ at Home</a></h3><p>Korean barbecue at home turns dinner into an event: meat grilled at the table, wrapped in lettuce with rice, garlic and ssamjang.</p></div>
+<div class="card"><img src="images/kimbap.jpg" alt="Kimbap"><h3><a href="guides/kimbap.html">Kimbap</a></h3><p>Kimbap is Korea&#x27;s portable seaweed rice roll, filled with seasoned vegetables, egg and protein, and sliced into neat bite-sized pieces.</p></div>
+<div class="card"><img src="images/japchae.jpg" alt="Japchae"><h3><a href="guides/japchae.html">Japchae</a></h3><p>Japchae is a celebratory noodle dish of glass noodles tossed with vegetables and beef in a sweet soy-sesame sauce. A longer read with extra tips and serving ideas.</p></div>
+<div class="card"><img src="images/sundubu-jjigae.jpg" alt="Sundubu Jjigae"><h3><a href="guides/sundubu-jjigae.html">Sundubu Jjigae</a></h3><p>Sundubu jjigae is a bubbling soft-tofu stew, spicy and comforting, served still simmering with an egg cracked in at the end.</p></div>
+<div class="card"><img src="images/samgyeopsal.jpg" alt="Samgyeopsal"><h3><a href="guides/samgyeopsal.html">Samgyeopsal</a></h3><p>Samgyeopsal is thick-cut pork belly grilled plain at the table, then eaten wrapped in lettuce with garlic, chillies and ssamjang.</p></div>
+<div class="card"><img src="images/korean-fried-chicken.jpg" alt="Korean Fried Chicken"><h3><a href="guides/korean-fried-chicken.html">Korean Fried Chicken</a></h3><p>Korean fried chicken is famously crisp: a thin, shattering crust, often glazed in sweet-spicy yangnyeom sauce or dusted with soy garlic. A longer read with extra tips and serving ideas.</p></div>
+<div class="card"><img src="images/galbi.jpg" alt="Galbi"><h3><a href="guides/galbi.html">Galbi</a></h3><p>Galbi is marinated beef short ribs, grilled over high heat until charred at the edges and juicy inside, a centrepiece of Korean barbecue.</p></div>
+<div class="card"><img src="images/doenjang-jjigae.jpg" alt="Doenjang Jjigae"><h3><a href="guides/doenjang-jjigae.html">Doenjang Jjigae</a></h3><p>Doenjang jjigae is Korea&#x27;s everyday soybean-paste stew, earthy and savoury, packed with tofu, courgette, mushrooms and greens.</p></div>
+<div class="card"><img src="images/naengmyeon.jpg" alt="Naengmyeon"><h3><a href="guides/naengmyeon.html">Naengmyeon</a></h3><p>Naengmyeon is a cold noodle soup for hot days: chewy buckwheat noodles in icy beef broth with cucumber, pear and a boiled egg. A longer read with extra tips and serving ideas.</p></div>
+<div class="card"><img src="images/mandu.jpg" alt="Mandu"><h3><a href="guides/mandu.html">Mandu</a></h3><p>Mandu are Korean dumplings, filled with pork, vegetables and glass noodles, then steamed, boiled or pan-fried until golden.</p></div>
+<div class="card"><img src="images/korean-pancakes-pajeon.jpg" alt="Korean Pancakes Pajeon"><h3><a href="guides/korean-pancakes-pajeon.html">Korean Pancakes Pajeon</a></h3><p>Pajeon is a savoury pancake loaded with spring onions and seafood, crisp at the edges and soft inside, served with a soy dipping sauce.</p></div>
+<div class="card"><img src="images/kimchi-fried-rice.jpg" alt="Kimchi Fried Rice"><h3><a href="guides/kimchi-fried-rice.html">Kimchi Fried Rice</a></h3><p>Kimchi fried rice is the best use for well-fermented kimchi: day-old rice fried with kimchi, gochujang and a fried egg on top. A longer read with extra tips and serving ideas.</p></div>
+<div class="card"><img src="images/dakgalbi.jpg" alt="Dakgalbi"><h3><a href="guides/dakgalbi.html">Dakgalbi</a></h3><p>Dakgalbi is a spicy stir-fried chicken dish from Chuncheon, cooked on a large flat pan with cabbage, sweet potato and rice cakes.</p></div>
+<div class="card"><img src="images/jjajangmyeon.jpg" alt="Jjajangmyeon"><h3><a href="guides/jjajangmyeon.html">Jjajangmyeon</a></h3><p>Jjajangmyeon is black-bean noodles: thick wheat noodles topped with a savoury chunjang sauce of pork, onion and courgette.</p></div>
+<div class="card"><img src="images/korean-street-food.jpg" alt="Korean Street Food"><h3><a href="guides/korean-street-food.html">Korean Street Food</a></h3><p>Korean street food is a whole world of snacks, from tteokbokki and fish cakes to hotteok and corn dogs, best eaten standing at a market stall. A longer read with extra tips and serving ideas.</p></div>
+<div class="card"><img src="images/banchan-guide.jpg" alt="Banchan Guide"><h3><a href="guides/banchan-guide.html">Banchan Guide</a></h3><p>Banchan are the small side dishes that surround every Korean meal, and learning a few of them transforms a simple dinner into a feast.</p></div>
+</div>
+</div>
+<footer><div class="wrap"><p>Korean Recipes — Authentic Korean cooking, made simple at home.</p><p><a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="contact.html">Contact</a> | <a href="privacy.html">Privacy Policy</a> | <a href="disclaimer.html">Disclaimer</a></p><p>This site shares general information only. It is not medical advice. Talk to a qualified professional before changing your diet.</p></div></footer>
+</body>
+</html>
